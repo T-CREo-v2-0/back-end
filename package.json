@@ -1,0 +1,24 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "Refactorización del backend para la aplicación T-CREo. MiniProyecto de Desarrollo de Software para la USBve.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev src/index.ts",
+    "start": "node lib/index.js",
+    "tsc": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "eslint": "^8.40.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.4"
+  }
+}
