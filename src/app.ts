@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import expressWinston from 'express-winston'
 import winston from 'winston'
 import errorHandler from './errorHandling/errorHandler'
@@ -6,6 +7,8 @@ import calculatorRoutes from './calculator/routes'
 import config from './config'
 
 const app = express()
+
+app.use(cors())
 
 /* istanbul ignore next */
 if (config.NODE_ENV !== 'test') {
