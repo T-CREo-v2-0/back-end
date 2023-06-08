@@ -1,3 +1,7 @@
+/**
+ * Twitter Credibility Calculator
+ */
+
 import {
   Credibility,
   TweetCredibilityWeights,
@@ -51,6 +55,8 @@ async function twitterUserCredibility(userId: string) {
     };
   });
 }
+
+// ------------- SOCIAL CREDIBILITY -------------
 
 /**
  * Returns the social credibility of a user, based on the calculated
