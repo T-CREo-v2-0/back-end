@@ -15,20 +15,15 @@ Refactorización del backend para la aplicación T-CREo. MiniProyecto de Desarro
 * Irvin Dongo
 * Ana Aguilera
 
-## Instalación del Proyecto
+## Scripts Disponibles
 
-### Requerimientos
+Se requiere de Node v18.16.0 para correr el proyecto.
 
-Node 18.16.0
+### `npm install`
 
-### Cómo ejecutar
+Instala las dependencias necesarias para correr el proyecto.
 
-#### Para desarrollo
+### `npm run dev`
 
-
-## Como contribuir
-
-
-### Convenciones de rama
-
-## En caso de dudas
+Corre el proyecto en modo de desarrollo.
+Abre [http://localhost:3000/health](http://localhost:3000/health) para ver el estado del servidor.
