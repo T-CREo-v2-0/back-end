@@ -1,20 +1,23 @@
-import 'dotenv/config'
-import app from './app'
-import config from './config'
-import mongoose, { ConnectOptions } from 'mongoose'
+import "dotenv/config";
+import app from "./app";
+import config from "./config";
+import dbConnect from "./config/mongo";
 
-if (!process.env.DB_URI) {
-  throw new Error('DB_URI must be defined');
+// Port to listen on
+const PORT = config.PORT;
+
+// Start the server
+async function main() {
+  console.log("Starting server...");
+
+  try {
+    dbConnect();
+    app.listen(PORT, () => {
+      console.log("Server listening at port " + PORT);
+    });
+  } catch (err) {
+    console.log("Error starting server: ", err);
+  }
 }
 
-const uri = process.env.DB_URI as string;
-
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true} as ConnectOptions)
-  .then(() => console.log('DB Connected!'))
-  .catch( (err) => console.error(err))
-
-app.listen(config.PORT, () => {
-  console.log('Server listening at port ' + config.PORT)
-})
+main();
