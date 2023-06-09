@@ -11,6 +11,7 @@ import {
 import { calculateTextCredibility, spellCheckers } from "./text-credibility";
 import { calculateSocialCredibility } from "./social-credibility";
 import { calculateUserCredibility } from "./user-credibility";
+import { getTweetByTweetId } from "../services/tweets";
 
 // ------------- USER CREDIBILITY -------------
 /**
@@ -21,7 +22,7 @@ import { calculateUserCredibility } from "./user-credibility";
 function responseToTwitterUser(response: any): TwitterUser {
   return {
     verified: response.verified,
-    yearJoined: response.created_at.split(" ").pop(),
+    yearJoined: response.created_at?.split(" ").pop(),
     followersCount: response.followers_count,
     friendsCount: response.friends_count,
   };
@@ -81,7 +82,7 @@ async function socialCredibility(userID: string, maxFollowers: number) {
 function responseToTweet(response: any): Tweet {
   return {
     text: {
-      text: response.full_text,
+      text: response.full_text || "",
       lang: Object.keys(spellCheckers).includes(response.lang)
         ? response.lang
         : "en",
@@ -96,16 +97,17 @@ function responseToTweet(response: any): Tweet {
  * @returns The tweet info
  */
 async function getTweetInfo(tweetId: string): Promise<Tweet> {
-  // TO-DO: Buscar en la BD o API el tweet
-  console.log("TO-DO: Buscar en la BD el tweet", tweetId);
+  // Buscar en la BD o API el tweet
+  const tweet = await getTweetByTweetId(tweetId);
+  console.log(tweet)
   return responseToTweet({
-    full_text: "This is a tweet",
-    lang: "en",
+    full_text: tweet?.text,
+    lang: tweet?.lang,
     user: {
-      verified: true,
-      created_at: "Mon Nov 29 21:18:15 +0000 2010",
-      followers_count: 100,
-      friends_count: 100,
+      verified: tweet?.user.verified,
+      created_at: tweet?.user.created_at,
+      followers_count: tweet?.user.followers_count,
+      friends_count: tweet?.user.friends_count,
     },
   });
 }
@@ -125,7 +127,10 @@ async function calculateTweetCredibility(
 ): Promise<Credibility> {
   try {
     const tweet: Tweet = await getTweetInfo(tweetId);
+    
     const user: TwitterUser = tweet.user;
+
+    console.log(tweet.user);
 
     const userCredibility: number =
       calculateUserCredibility(user) * params.weightUser;

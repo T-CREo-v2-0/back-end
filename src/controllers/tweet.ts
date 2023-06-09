@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import {
   getAllTweets,
   getTweetsByUser,
-  getTweetAndUserByTweetId,
+  getTweetByTweetId,
 } from "../services/tweets";
 import HttpError, {
   InternalServerError,
@@ -44,7 +44,7 @@ export const getTweetsUser = async (req: Request, res: Response) => {
 export const getByTweetId = async (req: Request, res: Response) => {
   try {
     const tweetId: string = req.params.id;
-    const tweet = await getTweetAndUserByTweetId(tweetId);
+    const tweet = await getTweetByTweetId(tweetId);
     if (tweet) {
       return res.json(tweet);
     } else {
