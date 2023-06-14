@@ -7,7 +7,7 @@ import {
 import HttpError, {
   InternalServerError,
   NotFoundError,
-} from "../errorHandling/httpError";
+} from "../../errorHandling/httpError";
 
 // this returns all tweets from the database with a specified limit
 export const getTweets = async (req: Request, res: Response) => {

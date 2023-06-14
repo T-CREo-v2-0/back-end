@@ -11,7 +11,7 @@ import {
 import { calculateTextCredibility, spellCheckers } from "./text-credibility";
 import { calculateSocialCredibility } from "./social-credibility";
 import { calculateUserCredibility } from "./user-credibility";
-import { getTweetByTweetId } from "../services/tweets";
+import { getTweetByTweetId } from "../db/services/tweets";
 
 // ------------- USER CREDIBILITY -------------
 /**

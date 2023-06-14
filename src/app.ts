@@ -2,10 +2,14 @@ import express from "express";
 import cors from "cors";
 import expressWinston from "express-winston";
 import winston from "winston";
+
+// Credibility Calculator
 import errorHandler from "./errorHandling/errorHandler";
 import calculatorRoutes from "./calculator/routes";
+
+// DB
 import config from "./config";
-import { router } from "./routes";
+import { router } from "./db/routes";
 
 // Create Express server
 const app = express();

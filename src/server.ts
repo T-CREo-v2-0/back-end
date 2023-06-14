@@ -1,7 +1,7 @@
 import "dotenv/config";
 import app from "./app";
 import config from "./config";
-import dbConnect from "./config/mongo";
+import dbConnect from "./db/config/mongo";
 
 // Port to listen on
 const PORT = config.PORT;
