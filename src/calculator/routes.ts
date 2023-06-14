@@ -29,12 +29,12 @@ calculatorRoutes.get(
         } as Text,
         {
           weightBadWords:
-            req.query.weightBadWords != null ? +req.query.weightBadWords : 0,
+            req.query.weightBadWords != null ? +req.query.weightBadWords : 0.33,
           weightMisspelling:
             req.query.weightMisspelling != null
               ? +req.query.weightMisspelling
-              : 0,
-          weightSpam: req.query.weightSpam != null ? +req.query.weightSpam : 0,
+              : 0.23,
+          weightSpam: req.query.weightSpam != null ? +req.query.weightSpam : 0.44,
         } as any
       )
     );
