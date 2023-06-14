@@ -126,11 +126,10 @@ async function calculateTweetCredibility(
   maxFollowers: number
 ): Promise<Credibility> {
   try {
+    console.log("Calculating credibility of tweet", tweetId);
     const tweet: Tweet = await getTweetInfo(tweetId);
     
     const user: TwitterUser = tweet.user;
-
-    console.log(tweet.user);
 
     const userCredibility: number =
       calculateUserCredibility(user) * params.weightUser;

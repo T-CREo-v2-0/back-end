@@ -57,14 +57,14 @@ calculatorRoutes.get(
       await calculateTweetCredibility(
         req.query.tweetId as string,
         {
-          weightBadWords: req.query.weightBadWords != null ? +req.query.weightBadWords : 0,
-          weightMisspelling: req.query.weightMisspelling != null ? +req.query.weightMisspelling : 0,
-          weightSpam: req.query.weightSpam != null ? +req.query.weightSpam : 0,
-          weightSocial: req.query.weightSocial != null ? +req.query.weightSocial : 0,
-          weightText: req.query.weightText != null ? +req.query.weightText : 0,
-          weightUser: req.query.weightUser != null ? +req.query.weightUser : 0,
+          weightBadWords: req.query.weightBadWords != null ? +req.query.weightBadWords : 0.33,
+          weightMisspelling: req.query.weightMisspelling != null ? +req.query.weightMisspelling : 0.23,
+          weightSpam: req.query.weightSpam != null ? +req.query.weightSpam : 0.44,
+          weightSocial: req.query.weightSocial != null ? +req.query.weightSocial : 0.33,
+          weightText: req.query.weightText != null ? +req.query.weightText : 0.34,
+          weightUser: req.query.weightUser != null ? +req.query.weightUser : 0.33,
         } as any,
-        req.query.maxFollowers != null ? +req.query.maxFollowers : 0
+        req.query.maxFollowers != null ? +req.query.maxFollowers : 2000000
       )
     );
   })
