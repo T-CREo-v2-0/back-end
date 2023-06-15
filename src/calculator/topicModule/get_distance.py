@@ -114,7 +114,6 @@ def get_distance(tweet: str):
 # Example
 # get_distance("Black teenage boys are not men. They are children. Stop referring to a 17 year old as a man. #ferguson")
 
-
 import sys 
 get_distance(sys.argv[1])
 print("First name: " + sys.argv[1])
