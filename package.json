@@ -4,7 +4,7 @@
   "description": "Refactorización del backend para la aplicación T-CREo. MiniProyecto de Desarrollo de Software para la USBve.",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon src/server.ts",
+    "dev": "concurrently \"tsc --watch\" \"nodemon lib/server.js\" ",
     "start": "node lib/server.js",
     "build": "tsc -p .",
     "tsc": "tsc",
@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "bad-words": "^3.0.4",
+    "concurrently": "^8.2.0",
     "cors": "^2.8.5",
     "dictionary-en": "^3.2.0",
     "dictionary-es": "^3.2.0",
@@ -37,6 +38,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/nspell": "^2.1.3",
     "eslint": "^8.40.0",
+    "nodemon": "^2.0.22",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.4"
   }

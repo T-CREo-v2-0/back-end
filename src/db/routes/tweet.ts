@@ -14,6 +14,6 @@ router.get("/", getTweets);
 router.get("/:id", getTweetsUser);
 
 /**
- * http://localhost:3000/tweet/#IDTWEET
+ * http://localhost:3000/tweet/id/#IDTWEET
  */
-router.get("/tweet/:id", getByTweetId);
+router.get("/id/:id", getByTweetId);
