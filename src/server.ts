@@ -7,6 +7,8 @@ import { calculateTopicCredibility } from "./calculator/topic-credibility";
 
 import { getTweetByTweetId } from "./db/services/tweets";
 
+// import { getDistance } from "./calculator/topic-credibility";
+
 // Port to listen on
 const PORT = config.PORT;
 
@@ -15,10 +17,16 @@ async function main() {
   console.log("Starting server...");
 
   try {
-    dbConnect();
+    await dbConnect();
+    const tweet = await getTweetByTweetId("1651454488429879296");
+    console.log(tweet);
     app.listen(PORT, () => {
+
       console.log("Server listening at port " + PORT);
+
     });
+
+
   } catch (err) {
     console.log("Error starting server: ", err);
   }
