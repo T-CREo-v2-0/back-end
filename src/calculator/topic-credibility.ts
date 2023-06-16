@@ -1,5 +1,10 @@
 const path = require("path");
 
+/**
+ * Calls python script to get Hellinger distance of a text
+ * @param text 
+ * @returns 
+ */
 async function getDistance(text: string): Promise<any> {
   return new Promise((resolve, reject) => {
     var spawn = require("child_process");
@@ -22,4 +27,22 @@ async function getDistance(text: string): Promise<any> {
   });
 }
 
-export { getDistance };
+/**
+ * Calculates the credibility of a topic based on the Hellinger distance
+ * @param text
+ * @param weight
+ * @returns The credibility of the topic
+ */
+async function calculateTopicCredibility(
+  text: string,
+  weight: number
+) : Promise<number> {
+  return new Promise((resolve, reject) => {
+    getDistance(text).then((distance: number) => {
+      const credibility: number = weight * 100 * (1 - distance);
+      resolve(credibility);
+    });
+  });
+}
+
+export { calculateTopicCredibility };

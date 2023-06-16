@@ -85,6 +85,11 @@ nmf_model = load(open(nmf_model_path, 'rb'))
 def get_distance(tweet: str):
     hashtags = find_hashtags(tweet)
     number_of_hashtags = len(hashtags)
+
+    # Si no tiene hashtag, retorna 0
+    if number_of_hashtags == 0:
+        return 0
+    
     clean_tweet_string = clean_tweet(tweet)
     values_of_text = transform_text(nmf_model, clean_tweet_string)
     values_of_hashtags = []
@@ -106,14 +111,14 @@ def get_distance(tweet: str):
     else:
         hellinger_distance = hellinger(
             sum_of_values_of_hashtags, values_of_text)
-        print('Distance: ', hellinger_distance)
+        # print('Distance: ', hellinger_distance)
         # if the hellinger distance is 25% of the total credibility value
-        print('Value to sum to the model: ', (1 - hellinger_distance)*25)
+        # print('Value to sum to the model: ', (1 - hellinger_distance)*25)
+        return hellinger_distance
 
 
 # Example
 # get_distance("Black teenage boys are not men. They are children. Stop referring to a 17 year old as a man. #ferguson")
 
 import sys 
-get_distance(sys.argv[1])
-print("First name: " + sys.argv[1])
+print(get_distance(sys.argv[1]))

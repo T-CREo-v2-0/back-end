@@ -11,6 +11,7 @@ import {
 import { calculateTextCredibility, spellCheckers } from "./text-credibility";
 import { calculateSocialCredibility } from "./social-credibility";
 import { calculateUserCredibility } from "./user-credibility";
+import { calculateTopicCredibility } from "./topic-credibility";
 import { getTweetByTweetId } from "../db/services/tweets";
 
 // ------------- USER CREDIBILITY -------------
@@ -99,7 +100,7 @@ function responseToTweet(response: any): Tweet {
 async function getTweetInfo(tweetId: string): Promise<Tweet> {
   // Buscar en la BD o API el tweet
   const tweet = await getTweetByTweetId(tweetId);
-  console.log(tweet)
+  console.log(tweet);
   return responseToTweet({
     full_text: tweet?.text,
     lang: tweet?.lang,
@@ -128,7 +129,7 @@ async function calculateTweetCredibility(
   try {
     console.log("Calculating credibility of tweet", tweetId);
     const tweet: Tweet = await getTweetInfo(tweetId);
-    
+
     const user: TwitterUser = tweet.user;
 
     const userCredibility: number =
@@ -138,8 +139,18 @@ async function calculateTweetCredibility(
       params.weightText;
     const socialCredibility: number =
       calculateSocialCredibility(user, maxFollowers) * params.weightSocial;
+
+    const topicCredibility: number = await calculateTopicCredibility(
+      tweet.text.text,
+      0.25
+    );
+
     return {
-      credibility: userCredibility + textCredibility + socialCredibility,
+      credibility:
+        userCredibility +
+        textCredibility +
+        socialCredibility +
+        topicCredibility,
     };
   } catch (e) {
     console.log(e);

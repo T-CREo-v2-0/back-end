@@ -13,13 +13,11 @@ export const getTweetsByUser = async (id: string, limit: number) => {
 };
 
 // this returns a tweet from the database with a specified id and its user
-export const getTweetByTweetId = async (idStr:string) => {
+export const getTweetByTweetId = async (idStr: string) => {
   try {
-    const tweet = await TweetModel.findOne({ id_str: idStr});
-
-    return {id_str: tweet?.id_str,
-    user: tweet?.user};
+    const tweet = await TweetModel.findOne({ id_str: idStr });
+    return tweet;
   } catch (error) {
     throw error;
   }
-}
+};

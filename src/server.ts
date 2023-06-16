@@ -3,7 +3,9 @@ import app from "./app";
 import config from "./config";
 import dbConnect from "./db/config/mongo";
 
-// import { getDistance } from "./calculator/topic-credibility";
+import { calculateTopicCredibility } from "./calculator/topic-credibility";
+
+import { getTweetByTweetId } from "./db/services/tweets";
 
 // Port to listen on
 const PORT = config.PORT;
@@ -21,10 +23,16 @@ async function main() {
     console.log("Error starting server: ", err);
   }
 
-  // // Test getDistance function
-  // const text = "Black teenage boys are not men. They are children. Stop referring to a 17 year old as a man. #ferguson";
-  // const distance = await getDistance(text);
-  // console.log("Distance: ", distance);
+  // Test getDistance function
+  const text =
+    "Black teenage boys are not men. They are children. Stop referring to a 17 year old as a man. #ferguson";
+  const distance = await calculateTopicCredibility(text, 0.25);
+  console.log("Distance: ", distance);
+
+  // Test getTweetByTweetId function
+  const tweetId = "1651454488429879296";
+  const tweet = await getTweetByTweetId(tweetId);
+  console.log(tweet);
 }
 
 main();
