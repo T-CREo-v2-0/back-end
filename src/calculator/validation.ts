@@ -87,6 +87,12 @@ export function validate(method: string): any {
           min: 0,
           max: 100,
         }),
+        check("weightTopic", "weightTopic.REQUIRED").exists(),
+        check("weightTopic", "weightTopic.NUMBER").isFloat(),
+        check("weightTopic", "weightTopic.NOT_IN_RANGE").isFloat({
+          min: 0,
+          max: 100,
+        }),
         check("maxFollowers", "maxFollowers.NUMBER").isInt(),
         check("maxFollowers", "maxFollowers.POSITIVE").isInt({ gt: -1 }),
         check(
@@ -109,7 +115,8 @@ export function validate(method: string): any {
             Math.abs(
               parseFloat(obj.req.query.weightText) +
                 parseFloat(obj.req.query.weightUser) +
-                parseFloat(obj.req.query.weightSocial) -
+                parseFloat(obj.req.query.weightSocial) +
+                parseFloat(obj.req.query.weightTopic) -
                 1
             ) < Number.EPSILON
         ),

@@ -100,7 +100,6 @@ function responseToTweet(response: any): Tweet {
 async function getTweetInfo(tweetId: string): Promise<Tweet> {
   // Buscar en la BD o API el tweet
   const tweet = await getTweetByTweetId(tweetId);
-  console.log(tweet);
   return responseToTweet({
     full_text: tweet?.text,
     lang: tweet?.lang,
@@ -129,7 +128,6 @@ async function calculateTweetCredibility(
   try {
     console.log("Calculating credibility of tweet", tweetId);
     const tweet: Tweet = await getTweetInfo(tweetId);
-
     const user: TwitterUser = tweet.user;
 
     const userCredibility: number =
@@ -140,10 +138,8 @@ async function calculateTweetCredibility(
     const socialCredibility: number =
       calculateSocialCredibility(user, maxFollowers) * params.weightSocial;
 
-    const topicCredibility: number = await calculateTopicCredibility(
-      tweet.text.text,
-      0.25
-    );
+    const topicCredibility: number =
+      (await calculateTopicCredibility(tweet.text.text)) * params.weightTopic;
 
     return {
       credibility:

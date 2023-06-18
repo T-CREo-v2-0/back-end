@@ -105,9 +105,11 @@ def get_distance(tweet: str):
 
     # Check array values
     if np.all(sum_of_values_of_hashtags == sum_of_values_of_hashtags[0]):
-        print('Invalid hashtag - the hashtag(s) does not exist on the database')
+        # print('Invalid hashtag - the hashtag(s) does not exist on the database')
+        return 0
     elif (np.all(values_of_text == values_of_text[0])):
-        print('Invalid tweet text')
+        # print('Invalid tweet text')
+        return 0
     else:
         hellinger_distance = hellinger(
             sum_of_values_of_hashtags, values_of_text)
@@ -116,6 +118,7 @@ def get_distance(tweet: str):
         # print('Value to sum to the model: ', (1 - hellinger_distance)*25)
         return hellinger_distance
 
+    return 0
 
 # Example
 # get_distance("Black teenage boys are not men. They are children. Stop referring to a 17 year old as a man. #ferguson")

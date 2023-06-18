@@ -34,13 +34,8 @@ async function main() {
   // Test getDistance function
   const text =
     "Black teenage boys are not men. They are children. Stop referring to a 17 year old as a man. #ferguson";
-  const distance = await calculateTopicCredibility(text, 0.25);
+  const distance = await calculateTopicCredibility(text) * 0.25;
   console.log("Distance: ", distance);
-
-  // Test getTweetByTweetId function
-  const tweetId = "1651454488429879296";
-  const tweet = await getTweetByTweetId(tweetId);
-  console.log(tweet);
 }
 
 main();

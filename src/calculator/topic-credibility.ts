@@ -2,8 +2,8 @@ const path = require("path");
 
 /**
  * Calls python script to get Hellinger distance of a text
- * @param text 
- * @returns 
+ * @param text
+ * @returns
  */
 async function getDistance(text: string): Promise<any> {
   return new Promise((resolve, reject) => {
@@ -33,13 +33,10 @@ async function getDistance(text: string): Promise<any> {
  * @param weight
  * @returns The credibility of the topic
  */
-async function calculateTopicCredibility(
-  text: string,
-  weight: number
-) : Promise<number> {
+async function calculateTopicCredibility(text: string): Promise<number> {
   return new Promise((resolve, reject) => {
     getDistance(text).then((distance: number) => {
-      const credibility: number = weight * 100 * (1 - distance);
+      const credibility: number = 100 * (1 - distance);
       resolve(credibility);
     });
   });

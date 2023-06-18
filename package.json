@@ -4,7 +4,7 @@
   "description": "Refactorización del backend para la aplicación T-CREo. MiniProyecto de Desarrollo de Software para la USBve.",
   "main": "server.js",
   "scripts": {
-    "dev": "concurrently \"tsc --watch\" \"nodemon lib/server.js\" ",
+    "dev": "nodemon src/server.ts",
     "start": "node lib/server.js",
     "build": "tsc -p .",
     "tsc": "tsc",
