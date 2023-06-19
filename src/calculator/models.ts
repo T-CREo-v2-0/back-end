@@ -20,11 +20,16 @@ export interface TwitterUser {
   yearJoined: number;
   followersCount: number;
   friendsCount: number;
+  statusesCount: number;
+  favoritesCount: number;
+  listedCount: number;
 }
 
 export interface Tweet {
   text: Text;
   user: TwitterUser;
+  retweetCount: number;
+  favoriteCount: number;
 }
 
 export interface Text {

@@ -14,7 +14,6 @@ import { calculateUserCredibility } from "./user-credibility";
 import { calculateTopicCredibility } from "./topic-credibility";
 import { getTweetByTweetId } from "../db/services/tweets";
 
-// ------------- USER CREDIBILITY -------------
 /**
  * Create a TwitterUser from a Twitter API response
  * @param response The Twitter API response
@@ -26,55 +25,12 @@ function responseToTwitterUser(response: any): TwitterUser {
     yearJoined: response.created_at?.split(" ").pop(),
     followersCount: response.followers_count,
     friendsCount: response.friends_count,
+    statusesCount: response.statuses_count,
+    favoritesCount: response.favourites_count,
+    listedCount: response.listed_count,
   };
 }
 
-/**
- * Gets user info:
- * @param userId The id of the user
- * @returns The user info
- */
-async function getUserInfo(userId: string): Promise<TwitterUser> {
-  // TO-DO: Buscar en la BD o API el user
-  console.log("TO-DO: Buscar en la BD el user", userId);
-  return {
-    verified: true,
-    yearJoined: 2010,
-    followersCount: 100,
-    friendsCount: 100,
-  };
-}
-
-/**
- * Returns the credibility of a user, based on the calculated credibility of the user
- * @param userID The id of the user
- * @returns The credibility of the user
- */
-async function twitterUserCredibility(userId: string) {
-  return getUserInfo(userId).then((response) => {
-    return {
-      credibility: calculateUserCredibility(response),
-    };
-  });
-}
-
-// ------------- SOCIAL CREDIBILITY -------------
-
-/**
- * Returns the social credibility of a user, based on the calculated
- * social credibility of the user
- * @param userID The id of the user
- * @param maxFollowers The maximum number of followers
- * @returns The social credibility of the user
- */
-async function socialCredibility(userID: string, maxFollowers: number) {
-  const response: TwitterUser = await getUserInfo(userID);
-  return {
-    credibility: calculateSocialCredibility(response, maxFollowers),
-  };
-}
-
-// ------------- TWEET CREDIBILITY -------------
 /**
  * Create a Tweet from a Twitter API response
  * @param response The Twitter API response
@@ -89,6 +45,8 @@ function responseToTweet(response: any): Tweet {
         : "en",
     },
     user: responseToTwitterUser(response.user),
+    retweetCount: response.retweet_count,
+    favoriteCount: response.favorite_count,
   };
 }
 
@@ -108,6 +66,9 @@ async function getTweetInfo(tweetId: string): Promise<Tweet> {
       created_at: tweet?.user.created_at,
       followers_count: tweet?.user.followers_count,
       friends_count: tweet?.user.friends_count,
+      statuses_count: tweet?.user.statuses_count,
+      favorites_count: tweet?.user.favourites_count,
+      listed_count: tweet?.user.listed_count,
     },
   });
 }
@@ -131,7 +92,7 @@ async function calculateTweetCredibility(
     const user: TwitterUser = tweet.user;
 
     const userCredibility: number =
-      calculateUserCredibility(user) * params.weightUser;
+      (await calculateUserCredibility(tweet)) * params.weightUser;
     const textCredibility: number =
       calculateTextCredibility(tweet.text, params).credibility *
       params.weightText;
@@ -154,4 +115,4 @@ async function calculateTweetCredibility(
   }
 }
 
-export { twitterUserCredibility, socialCredibility, calculateTweetCredibility };
+export { calculateTweetCredibility };

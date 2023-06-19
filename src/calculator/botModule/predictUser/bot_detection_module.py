@@ -124,11 +124,12 @@ def predictUser(
         tweet_favorite, tweet_text, tweet_lang
     ):
     user = User(user_follows, user_status, user_favorite, user_listed, user_friends)
-    print(user.followers_count)
     tweet = [tweet_retweet, tweet_favorite, tweet_text]
     df = get_features(user, tweet, tweet_lang)
     result = prediction(df, tweet_lang)
-    return result
+
+    # If result has 'human' return 0, else return 1
+    return 0 if result[0] == 'human' else 1
 
 # Example
 # user_follows = 100

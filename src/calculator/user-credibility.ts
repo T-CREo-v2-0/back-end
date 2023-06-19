@@ -1,4 +1,5 @@
-import { TwitterUser } from './models'
+import { Tweet } from './models'
+import { predictUser } from './bot-credibility';
 
 /**
  * Returns verified weight
@@ -28,8 +29,38 @@ function getCreationWeight(yearJoined: number): number {
  * @param user The user to check
  * @returns The credibility of the user
  */
-function calculateUserCredibility(user: TwitterUser): number {
-  return getVerifWeight(user.verified) + getCreationWeight(user.yearJoined);
+async function calculateUserCredibility(tweet: Tweet): Promise<number> {
+  const score = getVerifWeight(tweet.user.verified) + getCreationWeight(tweet.user.yearJoined);
+  const data = {
+    user_follows: tweet.user.followersCount,
+    user_status: tweet.user.statusesCount,
+    user_favorite: tweet.user.favoritesCount,
+    user_listed: tweet.user.listedCount,
+    user_friends: tweet.user.friendsCount,
+    tweet_retweet: tweet.retweetCount,
+    tweet_favorite: tweet.favoriteCount,
+    tweet_text: tweet.text.text,
+    tweet_lang: tweet.text.lang,
+  };
+  
+  try {
+    const prediction = await predictUser(data);
+
+    // If human, return score
+    if (prediction === 0) return score;
+
+    // If bot, reduce score
+    if (score > 50) {
+      return score * 0.85;
+    } else if (score > 35) {
+      return score * 0.75;
+    } else {
+      return score * 0;
+    }
+  } catch (error) {
+    console.log(error);
+    return score;
+  }
 }
 
 export { calculateUserCredibility };

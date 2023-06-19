@@ -1,9 +1,3 @@
-/**
- * Predict if a user is a bot or not
- * @param user User to predict
- * @returns A string with the prediction
- */
-
 interface PredictUser {
   user_follows: number;
   user_status: number;
@@ -16,7 +10,12 @@ interface PredictUser {
   tweet_lang: string;
 }
 
-async function predictUser(user: PredictUser): Promise<string> {
+/**
+ * Predict if a user is a bot or not
+ * @param user User to predict
+ * @returns A number with the prediction: humar (0) or bot (1)
+ */
+async function predictUser(user: PredictUser): Promise<number> {
   return new Promise((resolve, reject) => {
     const spawn = require("child_process");
     const scriptPath = path.join(
@@ -52,7 +51,7 @@ async function predictUser(user: PredictUser): Promise<string> {
     );
 
     if (process.error) {
-      reject(process.error);
+      reject(process.error.toNumber());
     }
     resolve(process.stdout);
   });
