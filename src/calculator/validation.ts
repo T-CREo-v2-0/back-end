@@ -34,6 +34,12 @@ export function validate(method: string): any {
           min: 0,
           max: 100,
         }),
+        check("weightSemantic", "weightSemantic.REQUIRED").exists(),
+        check("weightSemantic", "weightSemantic.NUMBER").isFloat(),
+        check("weightSemantic", "weightSemantic.NOT_IN_RANGE").isFloat({
+          min: 0,
+          max: 100,
+        }),
         check(
           "WEIGHT_TEXT_CRED_SUM_NOT_1",
           "customValidation.WEIGHT_TEXT_CRED_NOT_EQUALS_TO_1"
@@ -42,7 +48,8 @@ export function validate(method: string): any {
             Math.abs(
               parseFloat(obj.req.query.weightSpam) +
                 parseFloat(obj.req.query.weightBadWords) +
-                parseFloat(obj.req.query.weightMisspelling) -
+                parseFloat(obj.req.query.weightMisspelling) +
+                parseFloat(obj.req.query.weightSemantic) -
                 1
             ) < Number.EPSILON
         ),
@@ -66,6 +73,12 @@ export function validate(method: string): any {
         check("weightMisspelling", "weightMisspelling.REQUIRED").exists(),
         check("weightMisspelling", "weightMisspelling.NUMBER").isFloat(),
         check("weightMisspelling", "weightMisspelling.NOT_IN_RANGE").isFloat({
+          min: 0,
+          max: 100,
+        }),
+        check("weightSemantic", "weightSemantic.REQUIRED").exists(),
+        check("weightSemantic", "weightSemantic.NUMBER").isFloat(),
+        check("weightSemantic", "weightSemantic.NOT_IN_RANGE").isFloat({
           min: 0,
           max: 100,
         }),
@@ -103,7 +116,8 @@ export function validate(method: string): any {
             Math.abs(
               parseFloat(obj.req.query.weightSpam) +
                 parseFloat(obj.req.query.weightBadWords) +
-                parseFloat(obj.req.query.weightMisspelling) -
+                parseFloat(obj.req.query.weightMisspelling) +
+                parseFloat(obj.req.query.weightSemantic) -
                 1
             ) < Number.EPSILON
         ),

@@ -14,7 +14,7 @@ import time
 text = sys.argv[1]
 lang = sys.argv[2]
 
-# lang = 'en'
+# lang = 'es'
 # text = "Crisis inmobiliaria tras el covid: constructora pide su quiebra ante bajo requerimiento de servicios"
 #print(text)
 score = []

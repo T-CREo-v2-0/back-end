@@ -95,14 +95,13 @@ async function calculateTweetCredibility(
     const userCredibility: number =
       (await calculateUserCredibility(tweet)) * params.weightUser;
 
-    const textCredibility: number = (
-      await calculateTextCredibility(tweet.text, params)
-    ).credibility;
-    params.weightText;
+    const textCredibility: number =
+      (await calculateTextCredibility(tweet.text, params)).credibility *
+      params.weightText;
 
     const socialCredibility: number =
       calculateSocialCredibility(user, maxFollowers) * params.weightSocial;
-      
+
     const topicCredibility: number =
       (await calculateTopicCredibility(tweet.text.text)) * params.weightTopic;
 
@@ -114,6 +113,7 @@ async function calculateTweetCredibility(
       JSON.stringify({
         time: end - start,
         metric: "TWEET_CREDIBILITY",
+        result: result,
       })
     );
 

@@ -16,13 +16,13 @@ const calculatorRoutes = express.Router();
 calculatorRoutes.get(
   "/plain-text",
   validate("calculateTextCredibility"),
-  function (req, res) {
+  asyncWrap(async function (req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       errorMapper(errors.array());
     }
     res.json(
-      calculateTextCredibility(
+      await calculateTextCredibility(
         {
           text: req.query.text,
           lang: req.query.lang,
@@ -34,19 +34,22 @@ calculatorRoutes.get(
             req.query.weightMisspelling != null
               ? +req.query.weightMisspelling
               : 0.23,
-          weightSpam: req.query.weightSpam != null ? +req.query.weightSpam : 0.44,
+          weightSpam:
+            req.query.weightSpam != null ? +req.query.weightSpam : 0.44,
+          weightSemantic:
+            req.query.weightSemantic != null ? +req.query.weightSemantic : 0.0,
         } as any
       )
     );
-  }
+  })
 );
 
 /**
  * Route to calculate the credibility of a tweet
- * @route GET /calculator/twitter/tweets
+ * @route GET /calculator/tweet
  */
 calculatorRoutes.get(
-  "/twitter/tweets",
+  "/tweet",
   validate("calculateTweetCredibility"),
   asyncWrap(async function (req, res) {
     const errors = validationResult(req);
@@ -57,13 +60,24 @@ calculatorRoutes.get(
       await calculateTweetCredibility(
         req.query.tweetId as string,
         {
-          weightBadWords: req.query.weightBadWords != null ? +req.query.weightBadWords : 0.33,
-          weightMisspelling: req.query.weightMisspelling != null ? +req.query.weightMisspelling : 0.23,
-          weightSpam: req.query.weightSpam != null ? +req.query.weightSpam : 0.44,
-          weightSocial: req.query.weightSocial != null ? +req.query.weightSocial : 0.25,
-          weightText: req.query.weightText != null ? +req.query.weightText : 0.25,
-          weightUser: req.query.weightUser != null ? +req.query.weightUser : 0.25,
-          weightTopic: req.query.weightTopic != null ? +req.query.weightTopic : 0.25,
+          weightBadWords:
+            req.query.weightBadWords != null ? +req.query.weightBadWords : 0.33,
+          weightMisspelling:
+            req.query.weightMisspelling != null
+              ? +req.query.weightMisspelling
+              : 0.23,
+          weightSpam:
+            req.query.weightSpam != null ? +req.query.weightSpam : 0.44,
+          weightSemantic:
+            req.query.weightSemantic != null ? +req.query.weightSemantic : 0.0,
+          weightSocial:
+            req.query.weightSocial != null ? +req.query.weightSocial : 0.25,
+          weightText:
+            req.query.weightText != null ? +req.query.weightText : 0.25,
+          weightUser:
+            req.query.weightUser != null ? +req.query.weightUser : 0.25,
+          weightTopic:
+            req.query.weightTopic != null ? +req.query.weightTopic : 0.25,
         } as any,
         req.query.maxFollowers != null ? +req.query.maxFollowers : 2000000
       )

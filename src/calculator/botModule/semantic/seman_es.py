@@ -17,7 +17,7 @@ def best_match_ES(doc,candidate):
     sc = 0
     for item in candidate:
         new = transl(item)
-        print(new)
+        # print(new)
         wd = nlp(new)
         if doc.similarity(wd) > sc:
             sc = doc.similarity(wd) 
