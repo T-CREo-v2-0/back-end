@@ -28,6 +28,7 @@
     "mongoose": "^7.2.2",
     "nspell": "^2.1.5",
     "twitter-api-v2": "^1.14.2",
+    "utf8": "^3.0.0",
     "winston": "^3.9.0"
   },
   "devDependencies": {

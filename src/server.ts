@@ -4,10 +4,9 @@ import config from "./config";
 import dbConnect from "./db/config/mongo";
 
 import { calculateTopicCredibility } from "./calculator/topic-credibility";
+import { predictUser } from "./calculator/bot-credibility";
 
 import { getTweetByTweetId } from "./db/services/tweets";
-
-// import { getDistance } from "./calculator/topic-credibility";
 
 // Port to listen on
 const PORT = config.PORT;
@@ -36,6 +35,21 @@ async function main() {
     "Black teenage boys are not men. They are children. Stop referring to a 17 year old as a man. #ferguson";
   const distance = await calculateTopicCredibility(text) * 0.25;
   console.log("Distance: ", distance);
+
+  const user = {
+    user_follows: 100,
+    user_status: 100,
+    user_favorite: 100,
+    user_listed: 100,
+    user_friends: 100,
+    tweet_retweet: 100,
+    tweet_favorite: 100,
+    tweet_text: "I love this tweet",
+    tweet_lang: 'en',
+  };
+  const prediction = await predictUser(user);
+  console.log("Prediction: ", prediction);
+
 }
 
 main();

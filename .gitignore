@@ -132,3 +132,4 @@ dist
 lib/
 .env 
 venv/
+__pycache__
