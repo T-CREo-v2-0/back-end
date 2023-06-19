@@ -1,3 +1,5 @@
+const path = require("path");
+
 interface PredictUser {
   user_follows: number;
   user_status: number;
@@ -64,31 +66,39 @@ async function predictUser(user: PredictUser): Promise<number> {
  * @returns A number with the semantic score
  * @throws An error if the script fails
  */
-const utf8 = require("utf8");
-const path = require("path");
-const { spawn } = require("child_process");
-const scriptFilename = path.join(__dirname, "semantic", "analisis_seman.py");
 function semanticScore(
   tweet_text: String,
   tweet_lang: String
 ): Promise<number> {
   return new Promise((resolve, reject) => {
-    const test = spawn("python", [
-      scriptFilename,
-      utf8.encode(tweet_text),
-      tweet_lang,
-    ]);
-    try {
-      test.stdout.on("data", (data: any) => {
-        return resolve(parseFloat(data.toString("utf-8")) * 100);
-      });
-      test.stdeerr.on("error", (err: any) => {
-        return reject(err);
-      });
-    } catch (error) {}
+    const spawn = require("child_process");
+    const scriptPath = path.join(
+      __dirname,
+      "botModule",
+      "semantic",
+      "semantic_analysis.py"
+    );
+
+    // Full path go back 2 folders to get to root folder
+    const fullPath = path.join(__dirname, "..", "..");
+    const envPath = path.join(fullPath, "venv/bin/python");
+
+    const process = spawn.spawnSync(
+      envPath,
+      [scriptPath, tweet_text, tweet_lang],
+      {
+        encoding: "utf8",
+        stdio: "pipe",
+        silent: true,
+      }
+    );
+
+    if (process.error) {
+      reject(process.error.toNumber());
+    }
+    resolve(process.stdout);
   });
 }
-
 //////////////////////////////////////////////////////////////////////////////
 
 export { semanticScore, predictUser };

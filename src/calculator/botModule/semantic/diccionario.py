@@ -1,11 +1,14 @@
-import ast
+import os
 import re
-from functools import partial
 import gc
+import ast
+from functools import partial
 
+full_path = os.path.realpath(__file__)
 
-file1 = open("E:/Tesis/BackEnd-Integration/src/calculator/semantic/dic_es.txt", "r", encoding='utf-8-sig')
-file2 = open("E:/Tesis/BackEnd-Integration/src/calculator/semantic/dic_en.txt", "r", encoding='utf-8-sig')
+# dic_es.txt and dic_en.txt are dictionaries with the same structure:
+file1 = open(full_path.replace('diccionario.py', 'dic_es.txt'), "r", encoding='utf-8-sig')
+file2 = open(full_path.replace('diccionario.py', 'dic_en.txt'), "r", encoding='utf-8-sig')
 
 content1 = file1.read()
 content2 = file2.read()

@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import nspell from "nspell";
+// import { semanticScore } from "./bot-credibility";
 import { Credibility, TextCredibilityWeights, Text, Language } from "./models";
 
 // Bad words filter
@@ -186,22 +187,16 @@ function spamCriteria(text: Text): number {
  * @param params The weights of each criteria
  * @returns The credibility of the tweet
  */
-function calculateTextCredibility(
+async function calculateTextCredibility(
   text: Text,
   params: TextCredibilityWeights
-): Credibility {
-  const start = performance.now();
+): Promise<Credibility> {
   const spamCred = spamCriteria(text) * params.weightSpam;
   const badWordsCred = badWordsCriteria(text.text) * params.weightBadWords;
   const misspellingCred = misspellingCriteria(text) * params.weightMisspelling;
+  // const semanticCred = await semanticScore(cleanTweet(text.text), text.lang) * params.weightSemantic;
   const credibility = badWordsCred + misspellingCred + spamCred;
-  const end = performance.now();
 
-  console.log(JSON.stringify({
-    time: end - start,
-    metric: 'TEXT_CREDIBILITY'
-  }))
-  
   return { credibility };
 }
 export { calculateTextCredibility, spellCheckers };

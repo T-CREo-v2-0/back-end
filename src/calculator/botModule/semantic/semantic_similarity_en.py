@@ -6,6 +6,7 @@ import re
 import gc
 import sys
 
+# nltk.download('wordnet')
 nlp = spacy.load('en_core_web_lg', disable=["ner"])
 
 

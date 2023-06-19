@@ -10,11 +10,12 @@ import time
 #import os, psutil
 #process = psutil.Process(os.getpid())
 
-text = sys.argv[1]
 #start = time.time()
+text = sys.argv[1]
 lang = sys.argv[2]
-#lang = 'es'
-#text = "Crisis inmobiliaria tras el covid: constructora pide su quiebra ante bajo requerimiento de servicios"
+
+# lang = 'en'
+# text = "Crisis inmobiliaria tras el covid: constructora pide su quiebra ante bajo requerimiento de servicios"
 #print(text)
 score = []
 #print(get_lang(text))
@@ -48,6 +49,7 @@ if lang == 'en':
     #for item in score:
     #    result = item + result
     punt = result/len(score)
+    print(punt*100)
     #print("Resultado análisis semántico: ", punt*100)
 
 elif lang == 'es':
@@ -82,16 +84,20 @@ elif lang == 'es':
     #for item in score:
         #result = item + result
     punt = result/len(score)
+    print(punt*100)
     #print("Resultado análisis semántico: ", punt*100)
         
 elif text == '':
     #print('empty')
-    sys.exit(1)
+    # sys.exit(1)
+    print(100)
 else:
     #print("Language is not supported")
-    sys.exit(2)
+    # sys.exit(2)
+    print(100)
 
 
 #print ("Time elapsed:", end - start)
 
 #print("Memoria: ", process.memory_info().rss)  # in bytes 
+

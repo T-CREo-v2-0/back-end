@@ -5,6 +5,7 @@ from nltk.corpus import wordnet as wn
 import nltk
 import re
 
+# nltk.download('wordnet')
 nlp = spacy.load('en_core_web_lg', disable=["ner"])
 slp = spacy.load('es_core_news_lg', disable=["ner"])
 

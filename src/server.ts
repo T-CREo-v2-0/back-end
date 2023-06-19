@@ -4,7 +4,7 @@ import config from "./config";
 import dbConnect from "./db/config/mongo";
 
 import { calculateTopicCredibility } from "./calculator/topic-credibility";
-import { predictUser } from "./calculator/bot-credibility";
+import { predictUser, semanticScore } from "./calculator/bot-credibility";
 
 import { getTweetByTweetId } from "./db/services/tweets";
 
@@ -20,12 +20,8 @@ async function main() {
     const tweet = await getTweetByTweetId("1651454488429879296");
     console.log(tweet);
     app.listen(PORT, () => {
-
       console.log("Server listening at port " + PORT);
-
     });
-
-
   } catch (err) {
     console.log("Error starting server: ", err);
   }
@@ -33,9 +29,10 @@ async function main() {
   // Test getDistance function
   const text =
     "Black teenage boys are not men. They are children. Stop referring to a 17 year old as a man. #ferguson";
-  const distance = await calculateTopicCredibility(text) * 0.25;
+  const distance = (await calculateTopicCredibility(text)) * 0.25;
   console.log("Distance: ", distance);
 
+  // Test bot prediction
   const user = {
     user_follows: 100,
     user_status: 100,
@@ -45,11 +42,14 @@ async function main() {
     tweet_retweet: 100,
     tweet_favorite: 100,
     tweet_text: "I love this tweet",
-    tweet_lang: 'en',
+    tweet_lang: "en",
   };
   const prediction = await predictUser(user);
-  console.log("Prediction: ", prediction);
+  console.log("Prediction Bot (1) Human (0): ", prediction);
 
+  // Test semantic score
+  const score = await semanticScore(text, "en");
+  console.log("Semantic score: ", score);
 }
 
 main();

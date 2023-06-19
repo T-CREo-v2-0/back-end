@@ -88,26 +88,37 @@ async function calculateTweetCredibility(
 ): Promise<Credibility> {
   try {
     console.log("Calculating credibility of tweet", tweetId);
+    const start = performance.now();
     const tweet: Tweet = await getTweetInfo(tweetId);
     const user: TwitterUser = tweet.user;
 
     const userCredibility: number =
       (await calculateUserCredibility(tweet)) * params.weightUser;
-    const textCredibility: number =
-      calculateTextCredibility(tweet.text, params).credibility *
-      params.weightText;
+
+    const textCredibility: number = (
+      await calculateTextCredibility(tweet.text, params)
+    ).credibility;
+    params.weightText;
+
     const socialCredibility: number =
       calculateSocialCredibility(user, maxFollowers) * params.weightSocial;
-
+      
     const topicCredibility: number =
       (await calculateTopicCredibility(tweet.text.text)) * params.weightTopic;
 
+    const result =
+      userCredibility + textCredibility + socialCredibility + topicCredibility;
+    const end = performance.now();
+
+    console.log(
+      JSON.stringify({
+        time: end - start,
+        metric: "TWEET_CREDIBILITY",
+      })
+    );
+
     return {
-      credibility:
-        userCredibility +
-        textCredibility +
-        socialCredibility +
-        topicCredibility,
+      credibility: result,
     };
   } catch (e) {
     console.log(e);

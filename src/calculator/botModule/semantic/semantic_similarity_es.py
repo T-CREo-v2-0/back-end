@@ -6,6 +6,7 @@ import re
 import gc
 import sys
 
+# nltk.download('wordnet')
 slp = spacy.load('es_core_news_lg', disable=["ner"])
 
 def calculate_simil_esp(tweet,extract):

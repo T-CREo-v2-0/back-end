@@ -6,6 +6,7 @@ import re
 import gc
 import sys
 
+# nltk.download('wordnet')
 nlp = spacy.load('es_core_news_lg', disable=["ner"]) 
 
 def transl(word):
