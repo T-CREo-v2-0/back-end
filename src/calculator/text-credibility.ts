@@ -191,10 +191,29 @@ async function calculateTextCredibility(
   text: Text,
   params: TextCredibilityWeights
 ): Promise<Credibility> {
-  const spamCred = spamCriteria(text) * params.weightSpam;
-  const badWordsCred = badWordsCriteria(text.text) * params.weightBadWords;
-  const misspellingCred = misspellingCriteria(text) * params.weightMisspelling;
-  // const semanticCred = await semanticScore(cleanTweet(text.text), text.lang) * params.weightSemantic;
+  // SPAM CRITERIA
+  const spamCred =
+    params.weightSpam === 0 ? 0 : spamCriteria(text) * params.weightSpam;
+
+  // BAD WORDS CRITERIA
+  const badWordsCred =
+    params.weightBadWords === 0
+      ? 0
+      : badWordsCriteria(text.text) * params.weightBadWords;
+
+  // MISSPELLING CRITERIA
+  const misspellingCred =
+    params.weightMisspelling === 0
+      ? 0
+      : misspellingCriteria(text) * params.weightMisspelling;
+
+  // SEMANTIC CRITERIA
+  // const semanticCred =
+  //   params.weightSemantic === 0
+  //     ? 0
+  //     : (await semanticScore(cleanTweet(text.text), text.lang)) *
+  //       params.weightSemantic;
+
   const credibility = badWordsCred + misspellingCred + spamCred;
 
   return { credibility };
