@@ -51,6 +51,7 @@ function cleanTweet(text: string): string {
     .replace(/[\u{1F600}-\u{1F6FF}]/gu, "") // Remove emojis
     .replace(/[^\w\s]|_/g, "") // Remove punctuation
     .replace(/\s+/g, " ") // Remove extra spaces
+    .replace(/^-?[0-9]\d*(\.\d+)?$/g, "") //Remove all numbers (new parameter)
     .trim();
 }
 
@@ -218,4 +219,4 @@ async function calculateTextCredibility(
 
   return { credibility };
 }
-export { calculateTextCredibility, spellCheckers };
+export { calculateTextCredibility, spellCheckers, cleanTweet };
