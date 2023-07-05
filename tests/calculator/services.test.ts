@@ -1,10 +1,6 @@
 import assert from 'assert'
 import { cleanTweet } from '../../src/calculator/text-credibility'
 
-/* -- Remove all special characters
-* -- Remove all numbers
-*/
-
 describe('remove hashtags', () => {
   it('text with only one hashtag in the beginning', () => {
     assert.equal(cleanTweet('#mango'), '')
