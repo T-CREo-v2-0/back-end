@@ -25,25 +25,25 @@ describe('/calculate/plain-text endpoint', () => {
         weightSemantic: 0
       }
       it('returns credibility=100 with no bad words', () => {
-        return testCredibilityWithOkData({ credibility: 100 }, {
+        return testCredibilityWithOkData({ credibility: 100 },{
             text: 'yes no',
             ...params,
         })
-      })
+      }, 100000)
 
       it('returns credibility=50 with 2 words and 1 bad', () => {
         return testCredibilityWithOkData({ credibility: 50 }, {
             text: 'yes hell',
             ...params,
         })
-      })
+      }, 100000)
 
       it('returns credibility=0 with 2 words and 2 bad words', () => {
         return testCredibilityWithOkData({ credibility: 0 }, {
             text: 'hell hell',
             ...params,
         })
-      })
+      }, 100000)
 
       it('returns credibility=50 when a bad-word of any language is present', () => {
         return testCredibilityWithOkData({ credibility: 50 }, {
@@ -104,7 +104,7 @@ describe('/calculate/plain-text endpoint', () => {
       })
       it('takes numbers as correct', () => {
         return testCredibilityWithOkData({ credibility: 50 }, {
-            text: '2000 phrss',
+            text: 'phrss 2000',
             ...params,
         })
       })

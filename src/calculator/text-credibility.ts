@@ -51,7 +51,7 @@ function cleanTweet(text: string): string {
     .replace(/[\u{1F600}-\u{1F6FF}]/gu, "") // Remove emojis
     .replace(/[^\w\s]|_/g, "") // Remove punctuation
     .replace(/\s+/g, " ") // Remove extra spaces
-    .replace(/^-?[0-9]\d*(\.\d+)?$/g, "") //Remove all numbers (new parameter)
+    // .replace(/^-?[0-9]\d*(\.\d+)?$/g, "") //Remove all numbers (new parameter)
     .trim();
 }
 
@@ -71,10 +71,12 @@ const getWords = (text: string): string[] => text.split(" ");
  */
 function misspellingCriteria(text: Text): number {
   const cleanedText = cleanTweet(text.text);
+  console.log("cleanedText: ", cleanedText)
   const words = getWords(cleanedText);
   const misspelledWords = words.filter(
     (word) => !spellCheckers[text.lang].correct(word)
   );
+  console.log("misspelledWords: ", misspelledWords)
   return 100 - (100 * misspelledWords.length) / words.length;
 }
 

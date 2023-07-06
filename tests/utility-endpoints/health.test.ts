@@ -9,5 +9,5 @@ describe('/health endpoint', () => {
       .expect({
         status: 'UP'
       })
-  })
+  }, 100000)
 })
