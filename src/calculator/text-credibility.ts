@@ -71,12 +71,10 @@ const getWords = (text: string): string[] => text.split(" ");
  */
 function misspellingCriteria(text: Text): number {
   const cleanedText = cleanTweet(text.text);
-  console.log("cleanedText: ", cleanedText)
   const words = getWords(cleanedText);
   const misspelledWords = words.filter(
     (word) => !spellCheckers[text.lang].correct(word)
   );
-  console.log("misspelledWords: ", misspelledWords)
   return 100 - (100 * misspelledWords.length) / words.length;
 }
 
