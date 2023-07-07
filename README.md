@@ -48,3 +48,8 @@ npm run dev
 
 Abre [http://localhost:3000/health](http://localhost:3000/health) para ver el estado del servidor.
 
+## Antiguos Proyectos
+La refactorización del back-end se hizo sobre el proyecto [T-CREo v1.0](https://github.com/t-creo). Asimismo, se integró el módulo de [tópicos](https://github.com/magahernandez/get_distance) y los módulos de [análisis semántico y detección de bots](https://github.com/pame07/Tesis-WWW-Extendido).
+
+## Agradecimientos
+Agradecemos a Yuni Quintero, Germán Robayo, Nairelys Hernandez, Fabiola Martinez, David Cabeza, Jose Acevedo, Maria Gabriela Hernandez, Pamela Quinteros y Xabier Martínez por sus previos trabajos en el proyecto T-CREo.
