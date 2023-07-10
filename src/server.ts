@@ -8,6 +8,8 @@ import { predictUser, semanticScore } from "./calculator/bot-credibility";
 
 import { getTweetByTweetId } from "./db/services/tweets";
 
+import {obtainCredibilityTweets} from "../tests/tweets_credibility"
+
 // Port to listen on
 const PORT = config.PORT;
 
@@ -19,6 +21,7 @@ async function main() {
     await dbConnect();
     const tweet = await getTweetByTweetId("1651454488429879296");
     console.log(tweet);
+    await obtainCredibilityTweets();
     app.listen(PORT, () => {
       console.log("Server listening at port " + PORT);
     });
@@ -53,3 +56,5 @@ async function main() {
 }
 
 main();
+
+
