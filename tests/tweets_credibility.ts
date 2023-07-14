@@ -40,10 +40,9 @@ export async function obtainCredibilityTweet(tweetId: string): Promise<void> {
 // Obtener la credibilidad de 20 tweets
 export async function obtainCredibilityTweets(): Promise<void> {
     const tweets =  await getAllTweets(parseInt(tweetNumber));
-    console.log(tweets);
-    tweets.forEach(async tweet =>  {
+    for (const tweet of tweets) {
         const credibilidad = await obtainCredibilityTweet(tweet.id);
         console.log(`Credibility of tweet ${tweet.id}:`, credibilidad);
-    });
+    };
 
 }
