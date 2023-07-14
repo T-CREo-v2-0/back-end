@@ -31,7 +31,7 @@ export async function obtainCredibilityTweet(tweetId: string): Promise<void> {
           maxFollowers,
         },
       });
-    console.log(`Credibilidad del tweet ${tweetId}:`, response.data);
+    return response.data;
   } catch (error) {
     console.error(`Error al obtener la credibilidad del tweet ${tweetId}:`, error);
   }
