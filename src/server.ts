@@ -6,7 +6,6 @@ import dbConnect from "./db/config/mongo";
 import { calculateTopicCredibility } from "./calculator/topic-credibility";
 import { predictUser, semanticScore } from "./calculator/bot-credibility";
 
-import { getTweetByTweetId } from "./db/services/tweets";
 
 import {obtainCredibilityTweets} from "../tests/tweets_credibility"
 
@@ -19,15 +18,14 @@ async function main() {
 
   try {
     await dbConnect();
-    const tweet = await getTweetByTweetId("1651454488429879296");
-    console.log(tweet);
-    await obtainCredibilityTweets();
     app.listen(PORT, () => {
       console.log("Server listening at port " + PORT);
     });
   } catch (err) {
     console.log("Error starting server: ", err);
   }
+  // Credibility of n tweets test/tweets_credibility.ts
+  await obtainCredibilityTweets();
 
   // Test getDistance function
   const text =
