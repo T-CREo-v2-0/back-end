@@ -42,6 +42,17 @@ pip install -r requirements.txt
 
 ### Correr el proyecto en modo de desarrollo
 
+Crea un archiv `.env` en la raíz del proyecto con las siguientes variables de entorno:
+
+```bash
+PORT=3000
+NODE_ENV=local
+DB_URI="mongodb+srv:..."
+```
+
+Donde `DB_URI` es la URI de la base de datos de MongoDB que simula la Twitter API y contiene los datos de los usuarios y tweets.
+
+
 ```bash
 npm run dev
 ```
