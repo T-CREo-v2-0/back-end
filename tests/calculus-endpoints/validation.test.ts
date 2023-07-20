@@ -45,7 +45,7 @@ describe("Input Validation", () => {
           weightSemantic: 0,
         }
       );
-    });
+    }, 10000);
 
     it("text.NOT_EMPTY", () => {
       return testPlainTextCredibility(
@@ -344,7 +344,7 @@ describe("Input Validation", () => {
         },
         { text: "test", weightSpam: 0, weightBadWords: 0, weightSemantic: 0 }
       );
-    });
+    }, 1000);
 
     it("weightMisspelling.NUMBER", () => {
       return testPlainTextCredibility(

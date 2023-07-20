@@ -14,6 +14,8 @@ const PORT = config.PORT;
 
 // Start the server
 async function main() {
+  const start = new Date().getTime();
+
   console.log("Starting server...");
 
   try {
@@ -51,6 +53,9 @@ async function main() {
   // Test semantic score
   const score = await semanticScore(text, "en");
   console.log("Semantic score: ", score);
+
+  const elapsed = new Date().getTime() - start;
+  console.log("Tiempo total de ejecución: " + elapsed + "ms");
 }
 
 main();
