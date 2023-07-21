@@ -124,7 +124,7 @@ describe('remove emojis', () => {
 })
 
 describe('remove extra spaces', () => {
-    it('text with only one emoji in the beginning', () => {
+    it('text with only one extra space in the beginning', () => {
       assert.equal(cleanTweet('  '), '')
     })
 
@@ -144,85 +144,3 @@ describe('remove extra spaces', () => {
       assert.equal(cleanTweet('mango pear'), 'mango pear')
     })
 })
-
-// describe('remove numbers', () => {
-//     it('text with only one positive integer in the beginning', () => {
-//       assert.equal(cleanTweet('123'), '')
-//     })
-
-//     it('text with only one negative integer in the beginning', () => {
-//         assert.equal(cleanTweet('-123'), '')
-//     })
-
-//     it('text with only one positive decimal in the beginning', () => {
-//         assert.equal(cleanTweet('1.23'), '')
-//     })
-
-//     it('text with only one negative decimal in the beginning', () => {
-//           assert.equal(cleanTweet('-1.00'), '')
-//     })
-
-    /*it('text with one positive integer in the beginning', () => {
-      assert.equal(cleanTweet('123 pear'), 'pear')
-    })
-
-    it('text with one negative integer in the beginning', () => {
-        assert.equal(cleanTweet('-123 pear'), 'pear')
-    })
-
-    it('text with one positive decimal in the beginning', () => {
-        assert.equal(cleanTweet('1.23 pear'), 'pear')
-    })
-
-    it('text with one negative decimal in the beginning', () => {
-          assert.equal(cleanTweet('-12.3 pear'), 'pear')
-    })
-
-    it('text with many positive integers', () => {
-      assert.equal(cleanTweet('pear 0 apple 1'), 'pear apple')
-    })
-
-    it('text with many negative integers', () => {
-        assert.equal(cleanTweet('pear -8 apple -1'), 'pear apple')
-    })
-
-    it('text with many positive decimals', () => {
-        assert.equal(cleanTweet('pear 0.8 apple 1.2'), 'pear apple')
-    })
-
-    it('text with many negative decimals', () => {
-          assert.equal(cleanTweet('pear -1.8 apple -0.1'), 'pear apple')
-    })
-
-    it('text with all positive integers', () => {
-      assert.equal(cleanTweet('123456 777'), '')
-    })
-
-    it('text with all negative integers', () => {
-        assert.equal(cleanTweet('-123456 -777'), '')
-    })
-
-    it('text with all positive integers', () => {
-        assert.equal(cleanTweet('123456 777'), '')
-      })
-
-    it('text with all negative integers', () => {
-          assert.equal(cleanTweet('-123456 -777'), '')
-    })
-
-    it('text with all positive decimals', () => {
-        assert.equal(cleanTweet('12345.6 77.7'), '')
-    })
-
-    it('text with all negative decimals', () => {
-          assert.equal(cleanTweet('-12.3456 -77.7'), '')
-    })
-
-    it('text with all numbers', () => {
-        assert.equal(cleanTweet('123 -123 1.23 -1.23'), '')
-    })*/
-
-//     it('text with no numbers', () => {
-//       assert.equal(cleanTweet('mango pear'), 'mango pear')
-//     })
-// })
