@@ -3,7 +3,7 @@ const path = require("path");
 /**
  * Calls python script to get Hellinger distance of a text
  * @param text
- * @returns
+ * @returns The Hellinger distance of the text
  */
 async function getDistance(text: string): Promise<any> {
   return new Promise((resolve, reject) => {

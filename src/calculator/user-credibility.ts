@@ -47,7 +47,7 @@ async function calculateUserCredibility(tweet: Tweet): Promise<number> {
     const prediction = await predictUser(data);
 
     // If human, return score
-    if (prediction === 0) return score;
+    if (prediction == 0) return score;
 
     // If bot, reduce score
     if (score > 50) {

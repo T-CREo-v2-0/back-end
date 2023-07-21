@@ -1,7 +1,7 @@
 /**
- * Twitter Credibility Calculator
+ * This file contains the service that calculates the credibility of a tweet based
+ * on the credibility of the user, the text, the social and the topic credibility
  */
-
 import {
   Credibility,
   TweetCredibilityWeights,
@@ -92,18 +92,31 @@ async function calculateTweetCredibility(
     const tweet: Tweet = await getTweetInfo(tweetId);
     const user: TwitterUser = tweet.user;
 
+    // USER CREDIBILITY
     const userCredibility: number =
-      (await calculateUserCredibility(tweet)) * params.weightUser;
+      params.weightUser === 0
+        ? 0
+        : (await calculateUserCredibility(tweet)) * params.weightUser;
 
+    // TEXT CREDIBILITY
     const textCredibility: number =
-      (await calculateTextCredibility(tweet.text, params)).credibility *
-      params.weightText;
+      params.weightText === 0
+        ? 0
+        : (await calculateTextCredibility(tweet.text, params)).credibility *
+          params.weightText;
 
+    // SOCIAL CREDIBILITY
     const socialCredibility: number =
-      calculateSocialCredibility(user, maxFollowers) * params.weightSocial;
+      params.weightSocial === 0
+        ? 0
+        : calculateSocialCredibility(user, maxFollowers) * params.weightSocial;
 
+    // TOPIC CREDIBILITY
     const topicCredibility: number =
-      (await calculateTopicCredibility(tweet.text.text)) * params.weightTopic;
+      params.weightTopic === 0
+        ? 0
+        : (await calculateTopicCredibility(tweet.text.text)) *
+          params.weightTopic;
 
     const result =
       userCredibility + textCredibility + socialCredibility + topicCredibility;

@@ -19,11 +19,37 @@ Refactorización del backend para la aplicación T-CREo. MiniProyecto de Desarro
 
 Se requiere de Node v18.16.0 para correr el proyecto.
 
-### `npm install`
+### Instalación de dependencias
+#### Instalar dependencias de Node
 
-Instala las dependencias necesarias para correr el proyecto.
+```bash
+npm install
+```
+#### Instalar dependencias de Python
 
-### `npm run dev`
+- Crea un Virtual Enviroment
 
-Corre el proyecto en modo de desarrollo.
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
+- Instala dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+### Correr el proyecto en modo de desarrollo
+
+```bash
+npm run dev
+```
+
 Abre [http://localhost:3000/health](http://localhost:3000/health) para ver el estado del servidor.
+
+## Antiguos Proyectos
+La refactorización del back-end se hizo sobre el proyecto [T-CREo v1.0](https://github.com/t-creo). Asimismo, se integró el módulo de [tópicos](https://github.com/magahernandez/get_distance) y los módulos de [análisis semántico y detección de bots](https://github.com/pame07/Tesis-WWW-Extendido).
+
+## Agradecimientos
+Agradecemos a Yuni Quintero, Germán Robayo, Nairelys Hernandez, Fabiola Martinez, David Cabeza, Jose Acevedo, Maria Gabriela Hernandez, Pamela Quinteros y Xabier Martínez por sus previos trabajos en el proyecto T-CREo.
