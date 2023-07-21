@@ -21,3 +21,28 @@ export const getTweetByTweetId = async (idStr: string) => {
     throw error;
   }
 };
+
+// this returns a selected fields by user from the database
+export const getSelectedFieldsByUser = async (id: string, limit: number) => {
+  const fields = await TweetModel.find(
+    { "user.id": id },
+    {
+      "user.followers_count": 1,
+      "user.friends_count": 1,
+      "user.listed_count": 1,
+      "user.favourites_count": 1,
+      "user.statuses_count": 1,
+      retweet_count: 1,
+      favorite_count: 1,
+      text: 1,
+      lang: 1
+    }
+  ).limit(limit);
+  return fields;
+};
+
+// this returns the id of users in the database
+export const getUsersId = async () => {
+  const userIds = await TweetModel.distinct("user.id");
+  return userIds;
+};

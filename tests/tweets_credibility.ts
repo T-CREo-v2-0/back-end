@@ -4,8 +4,6 @@ import axios from 'axios';
 
 import  {getAllTweets}  from "../src/db/services/tweets"
 
-
-
 const tweetCredibilityEndpoint = config.URL_ROUTE_CREDIBILITY;
 const tweetNumber = config.TWEET_NUMBER;
 const TweetCredibilityWeights = {
